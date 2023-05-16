@@ -1,6 +1,10 @@
 # Bytely
 URL Shortener Demo Project
 
+Run the API and Client simultaneously. The Client relies on the API.
+
+Thoughts:
+
 The project made me think of Bitly right away, so I looked to them as an example and inspiration for keeping the URL short (hence the name that implies this solution produces larger urls than theirs)
 
 I am using in memory caching, but in the real world we would obviously want to persist this data. In the asbsence of a proper datastore, I am using a simple .GetHashCode() on the URL to generate an 'Id', knowing full well that that isn't a good production solution.
