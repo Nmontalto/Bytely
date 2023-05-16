@@ -82,5 +82,16 @@ namespace Bytely.API.Controllers
             else
                 return new BytelyRedirect();
         }
+
+        [HttpDelete]
+        [Route("/[controller]/[action]/{key}")]
+        public void DeleteUrlByKey(string key)
+        {
+            List<BytelyRedirect> redirects;
+            if (_cache.TryGetValue(URLSKEY, out redirects))
+            {
+                redirects.RemoveAll(r => r.BytelyKey.Equals(key));
+            }
+        }
     }
 }
