@@ -1,0 +1,36 @@
+﻿@page
+@model Bytely.Pages.URLsModel
+@{
+}
+
+
+<table class="table">
+        <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.URLs[0].BytelyUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.URLs[0].RedirectURL)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach(var item in Model.URLs)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BytelyUrl)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RedirectURL)
+                </td>
+                <td>
+                    <a asp-page="/Delete" asp-route-id="@item.BytelyKey">Delete</a> 
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

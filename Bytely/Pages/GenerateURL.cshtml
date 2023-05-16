@@ -1,0 +1,21 @@
+﻿@page
+@model Bytely.Pages.AddURLModel
+@{
+}
+
+<form method="post" asp-page="AddURLModel">
+    <div class="form-group">
+        <label asp-for="Url"></label>
+        <input asp-for="Url", class="form-control" placeholder="Enter URL to shorten" autocomplete="off"/>
+    </div>
+
+    @if (Model.BytelyKey?.Length > 0)
+    {
+        <div class="form-group">
+            <label asp-for="BytelyUrl"></label>
+            <input asp-for="BytelyUrl", class="form-control" readonly="readonly" autocomplete="off"/>
+        </div>
+    }
+
+    <button type="submit" class="btn-primary">Generate</button>
+</form>
