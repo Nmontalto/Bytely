@@ -5,9 +5,9 @@ using Newtonsoft.Json;
 
 namespace Bytely.Pages
 {
-    public class AddURLModel : PageModel
+    public class AddUrlModel : PageModel
     {
-        public string Url { get; set; }
+        public string InputUrl { get; set; }
         public string BytelyKey { get; set; }
         public string BytelyUrl { get; set; }
 
@@ -15,7 +15,7 @@ namespace Bytely.Pages
         private readonly string urlsKey = "URLS";
 
 
-        public AddURLModel(IMemoryCache cache)
+        public AddUrlModel(IMemoryCache cache)
         {
             _cache = cache;
         }
@@ -25,23 +25,23 @@ namespace Bytely.Pages
             UrlModel model;
             if (_cache.TryGetValue("CurrentUrlModel", out model))
             {
-                Url = model.RedirectURL;
+                InputUrl = model.RedirectUrl;
                 BytelyKey = model.BytelyKey;
                 BytelyUrl = model.BytelyUrl;
             }
         }
 
-        public async Task<IActionResult> OnPost([FromForm]string url)
+        public async Task<IActionResult> OnPost([FromForm]string inputUrl)
         {
-            if (url == null || string.IsNullOrWhiteSpace(url))
-                RedirectToPage("/GenerateURL");
+            if (inputUrl == null || string.IsNullOrWhiteSpace(inputUrl))
+                return RedirectToPage("/GenerateUrl");
 
             var urlModel = new UrlModel();
 
             using (var httpClient = new HttpClient())
             {
                 //the endpoint we hit here would normally be determined based on environment we are running in.
-                using (var response = await httpClient.GetAsync($"http://localhost:5202/BytelyKey/GetBytelyRedirectForURL/{Uri.EscapeDataString(url)}"))
+                using (var response = await httpClient.GetAsync($"http://localhost:5202/BytelyKey/GetBytelyRedirectForURL/{Uri.EscapeDataString(inputUrl)}"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     urlModel = JsonConvert.DeserializeObject<UrlModel>(apiResponse);
@@ -68,7 +68,7 @@ namespace Bytely.Pages
                 item.Value = urlModel;
             }
 
-            return RedirectToPage("/GenerateURL");
+            return RedirectToPage("/GenerateUrl");
         }
     }
 }

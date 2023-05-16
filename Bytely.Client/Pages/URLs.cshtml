@@ -1,34 +1,37 @@
 ﻿@page
-@model Bytely.Pages.URLsModel
+@model Bytely.Pages.UrlsModel
 @{
 }
 
-
+<form id="remove" method="post"></form>
 <table class="table">
         <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.URLs[0].BytelyUrl)
+                @Html.DisplayNameFor(model => model.Urls[0].BytelyUrl)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.URLs[0].RedirectURL)
+                @Html.DisplayNameFor(model => model.Urls[0].RedirectUrl)
             </th>
+            <th class="text-center">Remove</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
 
-        @foreach(var item in Model.URLs)
+        @foreach(var item in Model.Urls)
         {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.BytelyUrl)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.RedirectURL)
+                    @Html.DisplayFor(modelItem => item.RedirectUrl)
                 </td>
                 <td>
-                    <a asp-page="/Delete" asp-route-id="@item.BytelyKey">Delete</a> 
+                    <span>
+                        <button type="submit" name="key" value="@item.BytelyKey" form="remove" asp-page-handler="Remove" class="btn-danger btn-rounded btn-sm my-0">Delete</button>
+                    </span>
                 </td>
             </tr>
         }

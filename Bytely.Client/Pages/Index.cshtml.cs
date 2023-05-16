@@ -30,7 +30,7 @@ namespace Bytely.Pages
                 }
 
                 if (urlModel != null && urlModel.BytelyKey.Length > 0)
-                    return Redirect(urlModel.RedirectURL);
+                    return Redirect(urlModel.RedirectUrl);
                 else
                     return Redirect("/GenerateURL");
             }
